@@ -15,6 +15,8 @@
     </div>
 </div>
 @include('layout.partials._footer')
+
+@yield('styles')
 </body>
 
 </html>

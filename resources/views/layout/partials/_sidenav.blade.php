@@ -1,13 +1,17 @@
 <!-- Sidebar -->
 <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Start Bootstrap </div>
+    <div class="sidebar-heading">{{config('app.name')}}</div>
     <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a href="{{route('inventory.home')}}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+        <a href="{{route('inventory.all')}}" class="list-group-item list-group-item-action bg-light">View Inventories</a>
+        <a href="{{route('inventory.create')}}" class="list-group-item list-group-item-action bg-light">New Inventory</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Trash</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </a>
     </div>
 </div>
 <!-- /#sidebar-wrapper -->

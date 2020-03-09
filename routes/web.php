@@ -1,20 +1,18 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return redirect()->route('inventory.home');
+});
+
+Route::group(['prefix' => 'app','middleware' => 'auth'],function($route){
+    $route->get('/', 'AppController@dashboard')
+        ->name('inventory.home');
+    $route->get('/create', 'InventoryController@createInventory')
+        ->name('inventory.create');
+    $route->post('/create', 'InventoryController@storeInventory')
+        ->name('inventory.store');
+    $route->get('/inventories', 'InventoryController@viewInventories')
+        ->name('inventory.all');
+});
