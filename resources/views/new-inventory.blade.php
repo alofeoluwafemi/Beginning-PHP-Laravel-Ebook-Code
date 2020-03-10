@@ -11,8 +11,8 @@
            {{csrf_field()}}
            <div class="form-group">
                <label for="item">Item</label>
-               <input type="text" class="form-control" id="item" placeholder='e.g 32" Television'>
-               @if ($errors->has('password'))
+               <input type="text" class="form-control" id="item" name="item" placeholder='e.g 32" Television'>
+               @if ($errors->has('item'))
                    <small class="form-text text-danger">
                        {{ $errors->first('item') }}
                    </small>
@@ -20,7 +20,7 @@
            </div>
            <div class="form-group">
                <label for="quantity">Quantity</label>
-               <input type="text" class="form-control" id="quantity" placeholder="e.g 50">
+               <input type="text" class="form-control" id="quantity" name="quantity" placeholder="e.g 50">
                @if ($errors->has('quantity'))
                    <small class="form-text text-danger">
                        {{ $errors->first('quantity') }}

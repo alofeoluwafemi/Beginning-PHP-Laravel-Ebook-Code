@@ -7,6 +7,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-12 col-md-8 mt-4">
+            @if(session()->has('message'))
+                <div class="alert alert-info">
+                    {{session('message')}} New inventory successfully added!
+                </div>
+            @endif
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -26,8 +31,9 @@
                             <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
                             <a href="#" class="btn btn-outline-danger btn-sm" onclick='event.preventDefault(); document.getElementById("delete-inventory-form-{{$key}}").submit();'>
                                 Delete
-                                <form id="delete-inventory-form-{{$key}}" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="delete-inventory-form-{{$key}}" action="{{ route('inventory.delete',$inventory->id) }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
+                                    {{method_field('DELETE')}}
                                 </form>
                             </a>
                         </td>

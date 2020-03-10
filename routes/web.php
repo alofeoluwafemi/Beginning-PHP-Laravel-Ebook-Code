@@ -15,4 +15,8 @@ Route::group(['prefix' => 'app','middleware' => 'auth'],function($route){
         ->name('inventory.store');
     $route->get('/inventories', 'InventoryController@viewInventories')
         ->name('inventory.all');
+    //The value in the curly braces must match the model of the table we are deleting from
+    //as this will allow Laravel knows which class to resolve
+    $route->delete('/inventories/{inventory}/drop','InventoryController@drop')
+        ->name('inventory.delete');
 });
