@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-Route::get('/', function () {
+Route::get('/', function (\App\Inventory $inventory) {
     return redirect()->route('inventory.home');
 });
 
@@ -19,4 +19,14 @@ Route::group(['prefix' => 'app','middleware' => 'auth'],function($route){
     //as this will allow Laravel knows which class to resolve
     $route->delete('/inventories/{inventory}/drop','InventoryController@drop')
         ->name('inventory.delete');
+    $route->get('/inventories/{inventory}/restore','InventoryController@restoreItem')
+        ->name('inventory.restore');
+    $route->delete('/inventories/{inventory}/purge','InventoryController@purgeItem')
+        ->name('inventory.purge');
+    $route->get('/inventories/trash','InventoryController@viewTrash')
+        ->name('inventory.trash');
+    $route->get('/inventories/{inventory}/edit','InventoryController@editInventory')
+        ->name('inventory.edit');
+    $route->put('/inventories/{inventory}/edit','InventoryController@updateInventory')
+        ->name('inventory.update');
 });

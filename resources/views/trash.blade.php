@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('page-title')
-    New Inventory
+    Trash
 @endsection
 
 @section('content')
@@ -28,10 +28,10 @@
                         <td>{{$inventory->item}}</td>
                         <td>{{$inventory->quantity}}</td>
                         <td>
-                            <a href="{{route('inventory.edit',$inventory->id)}}" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a href="{{route('inventory.restore',$inventory->id)}}" class="btn btn-outline-primary btn-sm">Restore</a>
                             <a href="#" class="btn btn-outline-danger btn-sm" onclick='event.preventDefault(); document.getElementById("delete-inventory-form-{{$key}}").submit();'>
-                                Delete
-                                <form id="delete-inventory-form-{{$key}}" action="{{ route('inventory.delete',$inventory->id) }}" method="POST" style="display: none;">
+                                Purge
+                                <form id="delete-inventory-form-{{$key}}" action="{{ route('inventory.purge',$inventory->id) }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                     {{method_field('DELETE')}}
                                 </form>

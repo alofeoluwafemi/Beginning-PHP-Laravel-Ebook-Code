@@ -46,4 +46,46 @@ class InventoryController extends Controller
         return redirect()->route('inventory.all')->with('message','New inventory successfully added!');
 
     }
+
+    public function viewTrash(Inventory $inventory)
+    {
+        $inventories = $inventory->onlyTrashed()->get();
+
+        return view('trash',compact('inventories'));
+    }
+
+    public function restoreItem($inventory)
+    {
+        if($item = $this->inventory->withTrashed()->find($inventory)) {
+            $item->restore();
+        }
+
+        return redirect()->route('inventory.all')->with('message','Inventory successfully restored!');
+    }
+
+    public function purgeItem($inventory)
+    {
+        if($item = $this->inventory->withTrashed()->find($inventory)) {
+            $item->forceDelete();
+        }
+
+        return redirect()->route('inventory.all')->with('message','Inventory permanently deleted!');
+    }
+
+    public function editInventory(Inventory $inventory)
+    {
+        return view('edit-inventory',compact('inventory'));
+    }
+
+    /**
+     * @param StoreInventory $storeInventory
+     * @param Inventory $inventory
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateInventory(StoreInventory $storeInventory, Inventory $inventory)
+    {
+        $inventory->update($storeInventory->only('item','quantity'));
+
+        return redirect()->route('inventory.all')->with('message','Inventory successfully updated!');
+    }
 }
